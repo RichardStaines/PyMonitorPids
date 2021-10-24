@@ -32,44 +32,48 @@ def compress_old_files(config):
         logging.info(f'compress after {compress_after_days} days so NO COMPRESSION')
         return
 
-    path = config['FileRemover']['Folder']
+    paths = config['FileRemover']['Folder']
     file_filter = config['Compress']['Filter']
     recursive = config['FileRemover']['Recursive'].upper()
     compress_after_days = int(config['Compress']['CompressAfterDays'])
-    logging.info(f'compress after {compress_after_days} days, Folder {path} filter {file_filter}')
+    logging.info(f'compress after {compress_after_days} days, Folder {paths} filter {file_filter}')
     now = time.time()
+    path_list = paths.split(';')
 
-    if recursive == 'Y':
-        file_list = Path(path).rglob(file_filter)
-    else:
-        file_list = glob.glob(path + f"\\{file_filter}")
-    for f in file_list:
-        logging.info(f'{f},' + str(os.stat(f)))
-        if os.stat(f).st_mtime < now - compress_after_days * SECS_PER_DAY:
-            if os.path.isfile(f):
-                logging.info(f'Compress {f} ')
-                compress_file(f)
-                os.remove(f)
+    for path in path_list:
+        if recursive == 'Y':
+            file_list = Path(path).rglob(file_filter)
+        else:
+            file_list = glob.glob(path + f"\\{file_filter}")
+        for f in file_list:
+            logging.info(f'{f},' + str(os.stat(f)))
+            if os.stat(f).st_mtime < now - compress_after_days * SECS_PER_DAY:
+                if os.path.isfile(f):
+                    logging.info(f'Compress {f} ')
+                    compress_file(f)
+                    os.remove(f)
 
 
 def remove_old_files(config):
-    path = config['FileRemover']['Folder']
+    paths = config['FileRemover']['Folder']
     file_filter = config['FileRemover']['Filter']
     recursive = config['FileRemover']['Recursive'].upper()
     keep_days = int(config['FileRemover']['KeepDays'])
-    logging.info(f'Keep {keep_days} days, Folder {path} filter {file_filter}')
+    logging.info(f'Keep {keep_days} days, Folder {paths} filter {file_filter}')
     now = time.time()
+    path_list = paths.split(';')
 
-    if recursive == 'Y':
-        file_list = Path(path).rglob(file_filter)
-    else:
-        file_list = glob.glob(path + f"\\{file_filter}")
-    for f in file_list:
-        logging.info(f'{f},' + str(os.stat(f)))
-        if os.stat(f).st_mtime < now - keep_days * SECS_PER_DAY:
-            if os.path.isfile(f):
-                logging.info(f'Remove {f}')
-                os.remove(f)
+    for path in path_list:
+        if recursive == 'Y':
+            file_list = Path(path).rglob(file_filter)
+        else:
+            file_list = glob.glob(path + f"\\{file_filter}")
+        for f in file_list:
+            logging.info(f'{f},' + str(os.stat(f)))
+            if os.stat(f).st_mtime < now - keep_days * SECS_PER_DAY:
+                if os.path.isfile(f):
+                    logging.info(f'Remove {f}')
+                    os.remove(f)
 
 
 if __name__ == '__main__':

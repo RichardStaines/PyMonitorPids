@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="4ff9bce3-973e-407d-b328-ea99eb56f96b" name="Default Changelist" comment="Add Compression option i.e COmpressAfterDays">
+    <list default="true" id="4ff9bce3-973e-407d-b328-ea99eb56f96b" name="Default Changelist" comment="Add recursive option">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/FileRemover.cfg" beforeDir="false" afterPath="$PROJECT_DIR$/FileRemover.cfg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/FileRemover.py" beforeDir="false" afterPath="$PROJECT_DIR$/FileRemover.py" afterDir="false" />
@@ -112,7 +112,14 @@
       <option name="project" value="LOCAL" />
       <updated>1635095239672</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Add recursive option">
+      <created>1635096165181</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1635096165181</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -131,7 +138,8 @@
     <MESSAGE value="Add new util FileRemover - useful for removing old log files" />
     <MESSAGE value="make the code reusable." />
     <MESSAGE value="Add Compression option i.e COmpressAfterDays" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add Compression option i.e COmpressAfterDays" />
+    <MESSAGE value="Add recursive option" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add recursive option" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
