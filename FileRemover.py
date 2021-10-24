@@ -1,6 +1,7 @@
 import os, time, sys
 import configparser
 import glob
+from pathlib import Path
 from datetime import datetime
 import logging
 import gzip
@@ -33,11 +34,15 @@ def compress_old_files(config):
 
     path = config['FileRemover']['Folder']
     file_filter = config['Compress']['Filter']
+    recursive = config['FileRemover']['Recursive'].upper()
     compress_after_days = int(config['Compress']['CompressAfterDays'])
     logging.info(f'compress after {compress_after_days} days, Folder {path} filter {file_filter}')
     now = time.time()
 
-    file_list = glob.glob(path + f"\\{file_filter}")
+    if recursive == 'Y':
+        file_list = Path(path).rglob(file_filter)
+    else:
+        file_list = glob.glob(path + f"\\{file_filter}")
     for f in file_list:
         logging.info(f'{f},' + str(os.stat(f)))
         if os.stat(f).st_mtime < now - compress_after_days * SECS_PER_DAY:
@@ -50,11 +55,15 @@ def compress_old_files(config):
 def remove_old_files(config):
     path = config['FileRemover']['Folder']
     file_filter = config['FileRemover']['Filter']
+    recursive = config['FileRemover']['Recursive'].upper()
     keep_days = int(config['FileRemover']['KeepDays'])
     logging.info(f'Keep {keep_days} days, Folder {path} filter {file_filter}')
     now = time.time()
 
-    file_list = glob.glob(path + f"\\{file_filter}")
+    if recursive == 'Y':
+        file_list = Path(path).rglob(file_filter)
+    else:
+        file_list = glob.glob(path + f"\\{file_filter}")
     for f in file_list:
         logging.info(f'{f},' + str(os.stat(f)))
         if os.stat(f).st_mtime < now - keep_days * SECS_PER_DAY:
